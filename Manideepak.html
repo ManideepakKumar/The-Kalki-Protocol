@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KALKI PROTOCOL — The Movie</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    color: white;
+    font-family: Inter, sans-serif;
+}
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+body {
+    background:
+        radial-gradient(circle at center, #17100a 0%, #050507 45%, #000 100%);
+}
+
+#stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: .5;
+    animation: twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: .1; }
+    to   { opacity: .9; }
+}
+
+/* =========================================================
+   MOVIE SCREEN
+========================================================= */
+
+.movie {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+}
+
+.scene {
+    position: absolute;
+    inset: 0;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 1.5s ease,
+        transform 8s ease;
+
+    transform: scale(1.08);
+}
+
+.scene.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.scene-image {
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(0,0,0,.35),
+            rgba(0,0,0,.65)
+        ),
+        url("kalki-roadmap.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    filter:
+        brightness(.48)
+        contrast(1.15)
+        saturate(1.15);
+}
+
+/* different visual movement */
+
+.scene:nth-child(2) .scene-image {
+    background-position: 20% 30%;
+}
+
+.scene:nth-child(3) .scene-image {
+    background-position: 80% 25%;
+}
+
+.scene:nth-child(4) .scene-image {
+    background-position: 30% 65%;
+}
+
+.scene:nth-child(5) .scene-image {
+    background-position: 65% 55%;
+}
+
+.scene:nth-child(6) .scene-image {
+    background-position: 85% 65%;
+}
+
+.scene:nth-child(7) .scene-image {
+    background-position: 20% 80%;
+}
+
+.scene:nth-child(8) .scene-image {
+    background-position: 55% 50%;
+}
+
+.scene:nth-child(9) .scene-image {
+    background-position: 80% 45%;
+}
+
+.scene:nth-child(10) .scene-image {
+    background-position: 90% 75%;
+}
+
+.scene:nth-child(11) .scene-image {
+    background-position: 10% 75%;
+}
+
+.scene:nth-child(12) .scene-image {
+    background-position: 50% 90%;
+}
+
+.scene:nth-child(13) .scene-image {
+    background-position: 75% 90%;
+}
+
+.scene:nth-child(14) .scene-image {
+    background-position: 100% 100%;
+}
+
+/* =========================================================
+   CINEMATIC OVERLAYS
+========================================================= */
+
+.vignette {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            transparent 30%,
+            rgba(0,0,0,.45) 75%,
+            rgba(0,0,0,.95) 100%
+        );
+}
+
+.scanlines {
+    position: fixed;
+    inset: 0;
+    z-index: 21;
+    pointer-events: none;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0px,
+            transparent 4px,
+            rgba(255,255,255,.018) 5px
+        );
+}
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content {
+    position: absolute;
+    z-index: 10;
+
+    left: 8%;
+    bottom: 15%;
+
+    max-width: 900px;
+
+    text-shadow:
+        0 4px 20px black,
+        0 8px 40px black;
+}
+
+.act-number {
+    color: #d9a83f;
+
+    font-family: Cinzel, serif;
+
+    font-size: 14px;
+    letter-spacing: 5px;
+
+    margin-bottom: 15px;
+}
+
+.title {
+    font-family: Cinzel, serif;
+
+    font-size: clamp(42px, 7vw, 100px);
+
+    line-height: .95;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 25px;
+}
+
+.title span {
+    color: #e0b451;
+}
+
+.description {
+    max-width: 750px;
+
+    color: #ddd;
+
+    font-size: clamp(14px, 1.4vw, 20px);
+
+    line-height: 1.8;
+
+    margin-bottom: 25px;
+}
+
+.quote {
+    border-left: 2px solid #d9a83f;
+
+    padding-left: 20px;
+
+    max-width: 700px;
+
+    color: #f3d78a;
+
+    font-family: Cinzel, serif;
+
+    font-size: 18px;
+
+    line-height: 1.6;
+}
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.intro {
+    position: absolute;
+    z-index: 30;
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(40,25,5,.4),
+            #000 70%
+        );
+
+    transition: opacity 2s ease;
+}
+
+.intro.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.intro-small {
+    color: #d9a83f;
+
+    font-size: 12px;
+
+    letter-spacing: 7px;
+
+    margin-bottom: 20px;
+}
+
+.intro h1 {
+    font-family: Cinzel, serif;
+
+    font-size: clamp(55px, 12vw, 150px);
+
+    line-height: .85;
+
+    letter-spacing: 8px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff5bf,
+            #c8902d,
+            #6e4711
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    text-shadow:
+        0 10px 50px rgba(0,0,0,.8);
+}
+
+.intro-sub {
+    margin-top: 30px;
+
+    color: #ccc;
+
+    font-family: Cinzel, serif;
+
+    letter-spacing: 6px;
+
+    font-size: 13px;
+}
+
+.start {
+    margin-top: 50px;
+
+    padding: 16px 35px;
+
+    border: 1px solid #d9a83f;
+
+    background: transparent;
+
+    color: #e5bf65;
+
+    cursor: pointer;
+
+    letter-spacing: 3px;
+
+    transition: .3s;
+}
+
+.start:hover {
+    background: #d9a83f;
+    color: #000;
+
+    box-shadow:
+        0 0 50px rgba(217,168,63,.4);
+}
+
+/* =========================================================
+   TOP UI
+========================================================= */
+
+.top {
+    position: fixed;
+
+    z-index: 40;
+
+    top: 25px;
+    left: 40px;
+    right: 40px;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: Cinzel, serif;
+
+    letter-spacing: 4px;
+
+    font-size: 13px;
+
+    color: #d8b25e;
+}
+
+.status {
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    color: #999;
+}
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress {
+    position: fixed;
+
+    z-index: 40;
+
+    left: 0;
+    bottom: 0;
+
+    height: 3px;
+
+    background: #d9a83f;
+
+    width: 0%;
+
+    transition: width .3s linear;
+}
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.controls {
+    position: fixed;
+
+    z-index: 40;
+
+    right: 35px;
+    bottom: 35px;
+
+    display: flex;
+
+    gap: 8px;
+}
+
+.control {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(220,180,80,.4);
+
+    background: rgba(0,0,0,.5);
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.control:hover {
+    border-color: #d9a83f;
+
+    color: #d9a83f;
+
+    transform: scale(1.08);
+}
+
+/* =========================================================
+   ACT SELECTOR
+========================================================= */
+
+.act-menu {
+    position: fixed;
+
+    z-index: 50;
+
+    top: 80px;
+    right: 35px;
+
+    width: 260px;
+
+    max-height: 70vh;
+
+    overflow-y: auto;
+
+    background: rgba(4,4,6,.92);
+
+    border: 1px solid rgba(220,180,80,.25);
+
+    backdrop-filter: blur(15px);
+
+    transform: translateX(120%);
+
+    transition: .5s;
+}
+
+.act-menu.open {
+    transform: translateX(0);
+}
+
+.act-item {
+    padding: 14px 18px;
+
+    border-bottom: 1px solid rgba(255,255,255,.05);
+
+    cursor: pointer;
+
+    transition: .25s;
+}
+
+.act-item:hover,
+.act-item.active {
+    background: rgba(220,180,80,.12);
+
+    color: #e2bd61;
+}
+
+.act-item small {
+    display: block;
+
+    color: #777;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 5px;
+}
+
+/* =========================================================
+   FINAL
+========================================================= */
+
+.final {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: 2s;
+
+    z-index: 35;
+
+    background: #000;
+}
+
+.final.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.final h2 {
+    font-family: Cinzel, serif;
+
+    font-size: clamp(45px, 8vw, 110px);
+
+    color: #d9ad4d;
+
+    letter-spacing: 7px;
+}
+
+.final p {
+    margin-top: 25px;
+
+    color: #aaa;
+
+    letter-spacing: 4px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:700px) {
+
+    .content {
+        left: 7%;
+        right: 7%;
+        bottom: 17%;
+    }
+
+    .title {
+        font-size: 45px;
+    }
+
+    .description {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .quote {
+        font-size: 14px;
+    }
+
+    .top {
+        left: 20px;
+        right: 20px;
+    }
+
+    .controls {
+        right: 20px;
+        bottom: 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="movie">
+
+    <!-- =====================================================
+         INTRO
+    ====================================================== -->
+
+    <div class="intro" id="intro">
+
+        <div>
+
+            <div class="intro-small">
+                AN ORIGINAL CINEMATIC SAGA
+            </div>
+
+            <h1>
+                KALKI<br>
+                PROTOCOL
+            </h1>
+
+            <div class="intro-sub">
+                A JOURNEY ACROSS TIME, GODS & DIMENSIONS
+            </div>
+
+            <button class="start" onclick="startMovie()">
+                ▶ BEGIN THE JOURNEY
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         TOP BAR
+    ====================================================== -->
+
+    <div class="top">
+
+        <div class="logo">
+            KALKI PROTOCOL
+        </div>
+
+        <div class="status" id="status">
+            SYSTEM STANDBY
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SCENES
+    ====================================================== -->
+
+    <div id="scenes"></div>
+
+
+    <!-- =====================================================
+         FINAL
+    ====================================================== -->
+
+    <div class="final" id="final">
+
+        <div>
+
+            <div class="act-number">
+                KALKI PROTOCOL
+            </div>
+
+            <h2>
+                PHASE II
+            </h2>
+
+            <p>
+                THE FIRST CYCLE IS OVER.
+            </p>
+
+            <p>
+                NOW DISCOVER WHO STARTED IT.
+            </p>
+
+            <br><br>
+
+            <button class="start" onclick="restartMovie()">
+                ↻ RESTART THE JOURNEY
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CONTROLS
+    ====================================================== -->
+
+    <div class="controls">
+
+        <button class="control" onclick="previousAct()">
+            ←
+        </button>
+
+        <button class="control" onclick="toggleMovie()" id="playButton">
+            ❚❚
+        </button>
+
+        <button class="control" onclick="nextAct()">
+            →
+        </button>
+
+        <button class="control" onclick="toggleMenu()">
+            ☰
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         ACT MENU
+    ====================================================== -->
+
+    <div class="act-menu" id="actMenu"></div>
+
+
+    <!-- =====================================================
+         PROGRESS
+    ====================================================== -->
+
+    <div class="progress" id="progress"></div>
+
+
+    <!-- =====================================================
+         CINEMATIC EFFECTS
+    ====================================================== -->
+
+    <div id="stars"></div>
+
+    <div class="vignette"></div>
+
+    <div class="scanlines"></div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   STORY DATA
+========================================================= */
+
+const acts = [
+
+{
+    number: "ACT 1",
+    title: "THE DISCOVERY",
+    text:
+    "In a hidden laboratory, Manideepak discovers a mathematical pattern connecting Vedas, pyramids, ancient temples and the stars. What appears to be mythology begins behaving like a machine.",
+    quote:
+    "“This isn't a map. It's a message.”"
+},
+
+{
+    number: "ACT 2",
+    title: "THE FIRST PORTAL",
+    text:
+    "The first portal opens. Manideepak steps through and arrives 65 million years in the past. Dinosaurs roam the Earth, but something impossible waits beneath the ancient ground.",
+    quote:
+    "“When time forgets its beginning, open the first gate.”"
+},
+
+{
+    number: "ACT 3",
+    title: "THE REVENGE",
+    text:
+    "Manideepak returns to the present, but the journey has been noticed. An ancient enemy awakens and attacks his family. Someone has been waiting for the portal to reopen.",
+    quote:
+    "“You opened the gate that should never have been opened.”"
+},
+
+{
+    number: "ACT 4",
+    title: "THE WAR ACROSS TIME",
+    text:
+    "Manideepak builds the CHRONO-KALKI engine. He begins travelling through history and discovers that civilizations across different eras were connected by a hidden temporal network.",
+    quote:
+    "“Time is not a road. It is a battlefield.”"
+},
+
+{
+    number: "ACT 5",
+    title: "THE GOD PROBLEM",
+    text:
+    "Manideepak searches for answers beyond ordinary space and time. He encounters mysterious divine presences and learns that the Kalki Protocol is a safeguard against the collapse of the cosmic cycle.",
+    quote:
+    "“What you call a god can be a being, a force, a principle — or a reflection.”"
+},
+
+{
+    number: "ACT 6",
+    title: "HORROR OF THE PYRAMID",
+    text:
+    "Deep beneath Giza, Manideepak discovers the BLACK VIMANA — a gigantic machine apparently sealed beneath the pyramid for thousands of years.",
+    quote:
+    "“Do not awaken the Black Vimana.”"
+},
+
+{
+    number: "ACT 7",
+    title: "TEMPLES & PORTALS",
+    text:
+    "Across Earth, ancient temples, pyramids, caves and sacred sites activate simultaneously. Manideepak realizes that Earth itself is part of a gigantic portal network.",
+    quote:
+    "“Earth was never isolated.”"
+},
+
+{
+    number: "ACT 8",
+    title: "DINOSAURS IN MODERN EARTH",
+    text:
+    "The network overloads. Dinosaurs, UFOs, ancient armies and alien machines begin entering the modern world as different eras collide.",
+    quote:
+    "“Everything is happening at once.”"
+},
+
+{
+    number: "ACT 9",
+    title: "ALIEN CIVILIZATIONS",
+    text:
+    "Manideepak travels beyond Earth and discovers the NAGA ARCHITECTS — an ancient civilization that has watched Earth for millions of years.",
+    quote:
+    "“You were the first human in thousands of years to ask the correct question: Why?”"
+},
+
+{
+    number: "ACT 10",
+    title: "THE FINAL BATTLE",
+    text:
+    "Gods, aliens, humans and the ancient enemy collide. The battle spreads across Earth and multiple dimensions. Manideepak realizes that defeating the enemy through violence may destroy reality itself.",
+    quote:
+    "“Every side believes it is protecting existence.”"
+},
+
+{
+    number: "ACT 11",
+    title: "THE SACRIFICE",
+    text:
+    "The only way to stop the temporal network is to overload CHRONO-KALKI. Manideepak enters the machine knowing that he may never return.",
+    quote:
+    "“If I don't come back… remember that I tried.”"
+},
+
+{
+    number: "ACT 12",
+    title: "TIME COLLAPSE",
+    text:
+    "Time fractures. Manideepak sees his childhood, the ancient worlds, the future and countless versions of himself simultaneously. He finally understands the secret.",
+    quote:
+    "“Time is a circle.”"
+},
+
+{
+    number: "ACT 13",
+    title: "RETURN TO EARTH",
+    text:
+    "Manideepak awakens in a hospital. The world thinks the events were unexplained anomalies. But Manideepak can still see distortions in space. The journey changed him.",
+    quote:
+    "“The journey didn't just take me through time. It changed me.”"
+},
+
+{
+    number: "ACT 14",
+    title: "THE HIDDEN PROTECTOR",
+    text:
+    "A mysterious protector appears near an ancient temple. UFOs hover above him. He does not attack. One symbol remains carved into the stone — RAM.",
+    quote:
+    "“The first cycle is over. Now you must discover who started it.”"
+}
+
+];
+
+
+/* =========================================================
+   CREATE SCENES
+========================================================= */
+
+const sceneContainer =
+    document.getElementById("scenes");
+
+const menu =
+    document.getElementById("actMenu");
+
+
+acts.forEach((act, index) => {
+
+    /* SCENE */
+
+    const scene =
+        document.createElement("section");
+
+    scene.className = "scene";
+
+    scene.innerHTML = `
+
+        <div class="scene-image"></div>
+
+        <div class="content">
+
+            <div class="act-number">
+                ${act.number}
+            </div>
+
+            <h1 class="title">
+                ${act.title}
+            </h1>
+
+            <p class="description">
+                ${act.text}
+            </p>
+
+            <div class="quote">
+                ${act.quote}
+            </div>
+
+        </div>
+
+    `;
+
+    sceneContainer.appendChild(scene);
+
+
+    /* MENU ITEM */
+
+    const item =
+        document.createElement("div");
+
+    item.className = "act-item";
+
+    item.innerHTML = `
+
+        <small>${act.number}</small>
+
+        ${act.title}
+
+    `;
+
+    item.onclick = () => {
+
+        goToAct(index);
+
+        toggleMenu();
+
+    };
+
+    menu.appendChild(item);
+
+});
+
+
+const scenes =
+    document.querySelectorAll(".scene");
+
+const menuItems =
+    document.querySelectorAll(".act-item");
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let currentAct = 0;
+
+let playing = false;
+
+let timer = null;
+
+const ACT_DURATION = 12000;
+
+
+/* =========================================================
+   START MOVIE
+========================================================= */
+
+function startMovie() {
+
+    document
+        .getElementById("intro")
+        .classList.add("hidden");
+
+    playing = true;
+
+    currentAct = 0;
+
+    showAct();
+
+    runTimer();
+
+}
+
+
+/* =========================================================
+   SHOW ACT
+========================================================= */
+
+function showAct() {
+
+    scenes.forEach(
+        scene =>
+        scene.classList.remove("active")
+    );
+
+    menuItems.forEach(
+        item =>
+        item.classList.remove("active")
+    );
+
+
+    scenes[currentAct]
+        .classList.add("active");
+
+    menuItems[currentAct]
+        .classList.add("active");
+
+
+    document
+        .getElementById("status")
+        .innerText =
+        `${acts[currentAct].number} — ${acts[currentAct].title}`;
+
+
+    updateProgress();
+
+}
+
+
+/* =========================================================
+   NEXT
+========================================================= */
+
+function nextAct() {
+
+    if(currentAct >= acts.length - 1) {
+
+        finishMovie();
+
+        return;
+
+    }
+
+    currentAct++;
+
+    showAct();
+
+    restartTimer();
+
+}
+
+
+/* =========================================================
+   PREVIOUS
+========================================================= */
+
+function previousAct() {
+
+    if(currentAct <= 0)
+        return;
+
+    currentAct--;
+
+    showAct();
+
+    restartTimer();
+
+}
+
+
+/* =========================================================
+   GO TO ACT
+========================================================= */
+
+function goToAct(index) {
+
+    currentAct = index;
+
+    document
+        .getElementById("final")
+        .classList.remove("show");
+
+    showAct();
+
+    playing = true;
+
+    document
+        .getElementById("playButton")
+        .innerText = "❚❚";
+
+    restartTimer();
+
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+function runTimer() {
+
+    clearInterval(timer);
+
+    timer =
+        setInterval(() => {
+
+            if(!playing)
+                return;
+
+            nextAct();
+
+        }, ACT_DURATION);
+
+}
+
+
+function restartTimer() {
+
+    clearInterval(timer);
+
+    runTimer();
+
+}
+
+
+/* =========================================================
+   PLAY / PAUSE
+========================================================= */
+
+function toggleMovie() {
+
+    playing = !playing;
+
+
+    document
+        .getElementById("playButton")
+        .innerText =
+        playing ? "❚❚" : "▶";
+
+
+    if(playing)
+        restartTimer();
+
+    else
+        clearInterval(timer);
+
+}
+
+
+/* =========================================================
+   FINISH
+========================================================= */
+
+function finishMovie() {
+
+    playing = false;
+
+    clearInterval(timer);
+
+    document
+        .getElementById("final")
+        .classList.add("show");
+
+    document
+        .getElementById("status")
+        .innerText =
+        "KALKI PROTOCOL — COMPLETE";
+
+}
+
+
+/* =========================================================
+   RESTART
+========================================================= */
+
+function restartMovie() {
+
+    document
+        .getElementById("final")
+        .classList.remove("show");
+
+    currentAct = 0;
+
+    playing = true;
+
+    showAct();
+
+    restartTimer();
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function updateProgress() {
+
+    const percent =
+        ((currentAct + 1) / acts.length) * 100;
+
+    document
+        .getElementById("progress")
+        .style.width =
+        percent + "%";
+
+}
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+function toggleMenu() {
+
+    document
+        .getElementById("actMenu")
+        .classList.toggle("open");
+
+}
+
+
+/* =========================================================
+   KEYBOARD CONTROLS
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "ArrowRight")
+            nextAct();
+
+        if(event.key === "ArrowLeft")
+            previousAct();
+
+        if(event.key === " ")
+            toggleMovie();
+
+        if(event.key === "Escape")
+            document
+                .getElementById("actMenu")
+                .classList.remove("open");
+
+    }
+);
+
+
+/* =========================================================
+   STAR FIELD
+========================================================= */
+
+const starContainer =
+    document.getElementById("stars");
+
+
+for(let i = 0; i < 180; i++) {
+
+    const star =
+        document.createElement("div");
+
+    star.className = "star";
+
+    star.style.left =
+        Math.random() * 100 + "%";
+
+    star.style.top =
+        Math.random() * 100 + "%";
+
+    star.style.animationDelay =
+        Math.random() * 4 + "s";
+
+    star.style.transform =
+        `scale(${0.4 + Math.random() * 1.8})`;
+
+    starContainer.appendChild(star);
+
+}
+
+
+/* =========================================================
+   INITIAL STATE
+========================================================= */
+
+showAct();
+
+</script>
+
+</body>
+</html>
